@@ -195,7 +195,7 @@ socket.on('NEW_POST', (newPost) => {
     let tweets = newPost;
     document.getElementById('posts').innerHTML += `
     <div class="posts">
-    <img src="${tweets.profilePic} width="50" height="50""/>
+    <img src="${tweets.profilePic} width="50" height="50" style ="border-radius; 100%"/>
     <h4>${tweets.name}</h4>
     <p class="text-primary">${new Date(tweets.createdOn).toLocaleTimeString()}</p>
     <p>${tweets.tweets}</p>
@@ -203,7 +203,7 @@ socket.on('NEW_POST', (newPost) => {
     `
     document.getElementById('userPosts').innerHTML += `
     <div class="posts">
-    <img src="${tweets.profilePic} width="50" height="50""/>
+    <img src="${tweets.profilePic} width="50" height="50" style ="border-radius; 100%"/>
     <h4>${tweets.name}</h4>
     <p class="text-primary">${new Date(tweets.createdOn).toLocaleTimeString()}</p>
     <p>${tweets.tweets}</p>
