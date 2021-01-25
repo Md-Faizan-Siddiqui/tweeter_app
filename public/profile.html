@@ -1,0 +1,253 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="socket.io.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Chat App</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/custom.css" rel="stylesheet">
+    <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="./socket.io.js"></script>
+</head>
+
+<style>
+    body {
+        background: #DAE3E7;
+    }
+
+    .row {
+        margin-top: 40px;
+    }
+
+    html,
+    body,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-family: "Roboto", sans-serif
+    }
+
+    div.card {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 3px 10px 0 rgba(0, 0, 0, 0.1);
+    }
+
+    .header {
+        padding: 10px 0;
+        background: #f5f5f5;
+        border-top: 3px solid #3AAA64;
+    }
+
+    .list-group {
+        list-style: disc inside;
+    }
+
+    .list-group-item {
+        display: list-item;
+    }
+
+    .find-more {
+        text-align: right;
+    }
+
+    .label-theme {
+        background: #3AAA64;
+        font-size: 14px;
+        padding: .3em .7em .3em;
+        color: #fff;
+        border-radius: .25em;
+    }
+
+    .label a {
+        color: inherit;
+    }
+    .myClass {
+    display: block !important;
+    list-style: none;
+    padding: 10px;
+    font-size: 18px;
+    transform: rotate(180deg);
+}
+
+.haha {
+    font-size: 15px;
+    padding-left: 10px;
+    transform: rotate(180deg);
+}
+
+.userProfile {
+    margin-top: 15%;
+}
+
+.userProfilePic {
+    margin-top: 70%;
+}
+
+.img {
+    width: 170px;
+    border-radius: 50%;
+    display: block;
+    margin: 8px auto;
+}
+
+.opacityFile {
+    display: none;
+}
+
+.imageUpdate {
+    width: 200px ;
+    height: 200px;
+    border-radius: 100%;
+
+}
+.form{
+    width: 200px;
+    height: 200px;
+    border: 100%;
+    margin: 0 auto;
+}
+
+.img {
+    opacity: 1;
+    display: block;
+    width: 200px;
+    height: 200px;
+    border-radius: 100%;
+    transition: .5s ease;
+    backface-visibility: hidden;
+}
+
+.middle {
+    transition: .5s ease;
+    opacity: 0;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.imageUpdate:hover .img {
+    opacity: 0.3;
+}
+
+.imageUpdate:hover .middle {
+    opacity: 1;
+}
+.posts{
+    background-color: #fff;
+    padding: 20px;
+    margin-bottom:10px;
+    border-radius: 10px;
+}
+.ul li{
+    text-decoration: none;
+    list-style-type: none;
+    cursor: pointer;
+}
+</style>
+
+<body onload="getProfile(); getTweets()">
+    <!-- ******HEADER****** -->
+    <header class="header sticky-top">
+        <div class="container">
+
+            <div class="row" style="margin-top:20px;">
+                <div class="col-md-3">
+                    
+                </div>
+
+                <div class="col-md-6 pt-4">
+                    <!-- Rank & Qualifications -->
+                    
+                </div>
+                <div class="col-md-3 pt-4   ">
+                    <div class="button" style="float:right;">
+                        <a href="#" class="btn btn-outline-success btn-sm" onclick="logout()">Logout</a>
+                    </div>
+                </div>
+
+                </div>
+            </div>
+        </div>
+        </div>
+    </header>
+    <!--End of Header-->
+
+    <section style="margin-top: -40px">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3 bg-white" style="height: 100vh; position: fixed;">
+                    <div> 
+                    <form action="#" class="form">
+                        <label class="filebutton">
+                            <div class="imageUpdate">
+                                <img class="img " id="img"
+                                    src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png"
+                                    alt="Pagal" style="width: 200px; height: 200px; border-radius: 100%;" >
+                                <div class="middle">
+                                    <div class="text"></div>
+                                </div>
+                            </div>
+                            <span><input class="opacityFile" type="file" id="fileInput" name="myfile"
+                                    onchange="upload(); previewFile()">
+                            </span>
+                        </label>
+                    </form>
+                    <div class="text-center mt-5">
+                        <h5 style="color:#3AAA64">WELCOME.. <small></small></h5>
+                        <p id="pName"></p>
+                        <p>Email Address: <span id="pEmail"></span></p>
+                        <span class="number" style="font-size:18px">Phone: <span id="pPhone"></span></span>
+                    </div>
+                    <div class="text-center mt-5">
+                        <ul class="ul">
+                            <li onclick="showHome()">Home</li>
+                            <li onclick="showProfile()">My   Tweets    </li>
+                        </ul>
+                    </div>
+                </div>
+                </div>
+                <div class="col-md-8 " style="margin-left: 400px; margin-top: 20px; ">
+                    <form onsubmit="return post()" action="#">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="InputPost" aria-describedby="emailHelp"
+                                placeholder="Type your post" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Post</button>
+                    </form>
+                        <div id="myPosts">
+                            <h2>Home</h2>
+                            <div id="posts">
+                            </div>
+                        </div>
+                        <div id="otherPosts">
+                            <h2>My Posts</h2>
+                            <div id="userPosts">
+
+                            </div>
+                        </div>
+
+                    </div>
+        </div>
+    </section>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>
