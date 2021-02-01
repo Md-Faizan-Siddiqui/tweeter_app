@@ -22,7 +22,7 @@
 
 <style>
     body {
-        background: #DAE3E7;
+        background: gray;
     }
 
     .row {
@@ -148,7 +148,8 @@
     opacity: 1;
 }
 .posts{
-    background-color: #fff;
+    background-color: #000000;
+    color: #ffffff;
     padding: 20px;
     margin-bottom:10px;
     border-radius: 10px;
@@ -158,17 +159,27 @@
     list-style-type: none;
     cursor: pointer;
 }
+
+img { 
+  border-radius: 100%;
+}
+
+#posts{
+display: flex;
+flex-direction: column-reverse;
+}
+
 </style>
 
 <body onload="getProfile(); getTweets()">
     <!-- ******HEADER****** -->
-    <header style="background-color: #3c8dbc;" class="sticky-top">
+    <header style="background-color: #000000;" class="sticky-top">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
                     <div class="pt-2 pb-5">
 
-                        <a class="btn btn-outline-light float-right mr-3" onclick="logout()">Logout</a>
+                        <a class="btn btn-outline-light text-white float-right mr-3" onclick="logout()">Logout</a>
                     </div>
                 </div>
             </div>
@@ -176,10 +187,10 @@
     </header>
     <!--End of Header-->
 
-    <section style="margin-top: -40px">
+    <section style="margin-top: -80px">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-3 bg-white" style="height: 100vh; position: fixed;">
+                <div class="col-md-3 " style="height: 100vh; position: fixed; background-color: #000000; color: #ffffff; ">
                     <div> 
                     <form action="#" class="form">
                         <label class="filebutton">
@@ -197,7 +208,7 @@
                         </label>
                     </form>
                     <div class="text-center mt-5">
-                        <h5 style="color:#3AAA64">WELCOME.. <small></small></h5>
+                        <h5 style="color:black;">WELCOME.. <small></small></h5>
                         <p id="pName"></p>
                         <p>Email Address: <span id="pEmail"></span></p>
                         <span class="number" style="font-size:18px">Phone: <span id="pPhone"></span></span>
@@ -216,7 +227,7 @@
                             <input type="text" class="form-control" id="InputPost" aria-describedby="emailHelp"
                                 placeholder="Type your post" required>
                         </div>
-                        <button type="submit" class="btn btn-primary" style="width: 100%;">Post</button>
+                        <button type="submit" class="btn btn-primary" style="width: 100%; background-color: #377FEA;">Post</button>
                     </form>
                         <div id="myPosts">
                             <h2>Home</h2>

@@ -191,11 +191,11 @@ function getTweets() {
     return false
 }
 socket.on('NEW_POST', (newPost) => {
-    console.log(newPost)
+    console.log(newPost.profilePic)
     let tweets = newPost;
     document.getElementById('posts').innerHTML += `
     <div class="posts">
-    <img src="${tweets.profilePic} width="50" height="50" style ="border-radius; 100%"/>
+    <img src="${tweets.profilePic}" width="50" height="50" style ="border-radius; 100%" />
     <h4>${tweets.name}</h4>
     <p class="text-primary">${new Date(tweets.createdOn).toLocaleTimeString()}</p>
     <p>${tweets.tweets}</p>

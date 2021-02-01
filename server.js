@@ -35,13 +35,16 @@ var upload = multer({ storage: storage })
 const admin = require("firebase-admin");
 // https://firebase.google.com/docs/storage/admin/start
 var SERVICE_ACCOUNT = JSON.parse(process.env.SERVICE_ACCOUNT)
+
   
 
 admin.initializeApp({
     credential: admin.credential.cert(SERVICE_ACCOUNT),
     databaseURL: process.env.databaseURL
+    
 });
 const bucket = admin.storage().bucket(process.env.BUCKET);
+
 
 app.use(bodyParser.json());
 app.use(cookieParser());
